@@ -168,6 +168,7 @@ char	*ft_getenv(char **env, char *str);
 //Signal handler
 void	set_signal(void);
 void	set_child_sig(void);
+void	set_heredoc_sig(void);
 
 //dataFunctions
 t_dyn_arr	dyn_arr_new(void);

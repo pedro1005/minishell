@@ -2,6 +2,7 @@
 
 void	handle_sig(int signbr);
 void	handle_child_sig(int signbr);
+void	handle_heredoc_sig(int signbr);
 
 void	set_signal(void)
 {
@@ -13,6 +14,18 @@ void	set_child_sig(void)
 {
 	signal(SIGINT, handle_child_sig);
 	signal(SIGQUIT, handle_child_sig);
+}
+
+void	set_heredoc_sig()
+{
+	signal(SIGINT, handle_heredoc_sig);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+void	handle_heredoc_sig(int signbr)
+{
+	if (signbr == SIGINT)
+		exit(130);
 }
 
 void	handle_sig(int signbr)
