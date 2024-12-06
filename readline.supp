@@ -1,0 +1,8 @@
+# valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./minishell
+
+{
+    ignore_libreadline_leaks
+    Memcheck:Leak
+    ...
+    obj:*/libreadline.so.*
+}
