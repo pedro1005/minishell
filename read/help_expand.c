@@ -2,6 +2,8 @@
 
 static bool	is_last_status(char *arg)
 {
+	while (arg && *arg != '$')
+		arg++;
 	return (ft_strncmp("$?", arg, 2) == 0);
 }
 

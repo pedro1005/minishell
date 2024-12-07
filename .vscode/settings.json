@@ -1,0 +1,7 @@
+{
+	"files.associations": {
+		"ms.h": "c",
+		"backup": "c"
+	},
+	"makefile.configureOnOpen": false
+}
