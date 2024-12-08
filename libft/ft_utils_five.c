@@ -43,6 +43,8 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 
 int	ft_strcmp(char *str, const char *dest)
 {
+	if (!str || !dest)
+		return (1);
 	while (*str || *dest)
 	{
 		if ((*str != *dest) || !(*str) || !(*dest))

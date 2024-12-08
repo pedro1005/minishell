@@ -17,7 +17,11 @@ t_dyn_arr	*tokenize(t_dyn_arr *env, const char *in)
 	{
 		token = get_token(env, &lexer);
 		if (token && (ft_strcmp(token->s, (const char *)"") == 0))
+		{
+			free (token->s);
+			free(token);
 			continue ;
+		}
         else if (token)
 			dyn_arr_push(tokens, token);
 		else

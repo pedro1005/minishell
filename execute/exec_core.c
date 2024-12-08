@@ -81,6 +81,9 @@ void	ft_exec_redir(t_redir *redir, t_terminal *terminal, int hd_input_fd)
 
 void	execute(t_terminal *terminal)
 {
+	if (!terminal->commands->exec && !terminal->commands->redir
+		&& !terminal->commands->right_tree)
+			return ;
 	if (!terminal->commands->right_tree && terminal->commands->exec
 		&& (terminal->commands->exec->type.sub_tk == TK_BUILT_IN
 			|| terminal->commands->exec->type.sub_tk == TK_EQL))
