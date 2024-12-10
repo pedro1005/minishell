@@ -39,7 +39,6 @@ void	ft_abst(t_terminal *terminal)
 	int		pipe_created;
 	int		hd_input_fd;
 
-	set_child_sig();
 	set_fd(prev_fd, -1);
 	root = terminal->commands;
 	while (root)

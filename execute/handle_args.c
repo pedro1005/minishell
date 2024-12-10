@@ -2,19 +2,17 @@
 
 void	ft_fill_args_loop(char **args, t_token **tokens, int *i, int *j)
 {
-	args[*j] = ft_strdup(tokens[*i]->s);//+
-	(*i)++;//+
-	(*j)++;//+
-	//while (tokens[*i] && tokens[*i]->type.main_tk != TK_OPERATOR)
+	args[*j] = ft_strdup(tokens[*i]->s);
+	(*i)++;
+	(*j)++;
 	while (tokens[*i] && tokens[*i]->type.sub_tk != TK_PIPE)
 	{
-		if (tokens[*i]->type.sub_tk == TK_ARG)	//+
+		if (tokens[*i]->type.sub_tk == TK_ARG)
 		{
 			args[*j] = ft_strdup(tokens[*i]->s);
 			(*j)++;
 		}
 		(*i)++;
-		//(*j)++;
 	}
 }
 

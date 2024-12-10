@@ -51,7 +51,7 @@ t_redir	*ft_get_redir(t_token **tokens, int index)
 	redir = ft_init_redir();
 	start_index = index;
 	if (start_index > 0)
-        	start_index++;
+			start_index++;
 	ft_populate_redir(redir, tokens, start_index);
 	return (redir);
 }

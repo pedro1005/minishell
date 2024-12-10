@@ -4,6 +4,7 @@ void	ft_execve(t_exec *exec, t_terminal *terminal)
 {
 	char	*full_path;
 	char	*name;
+
 	name = exec->name;
 	full_path = NULL;
 	if (exec->type.sub_tk == TK_PATH)
@@ -22,7 +23,8 @@ void	ft_execve(t_exec *exec, t_terminal *terminal)
 void	ft_execnode(t_tree *node, t_terminal *terminal)
 {
 	if (node && node->exec && node->exec->type.sub_tk && \
-			(node->exec->type.sub_tk == TK_EXEC || node->exec->type.sub_tk == TK_PATH))
+			(node->exec->type.sub_tk == TK_EXEC
+			|| node->exec->type.sub_tk == TK_PATH))
 	{
 		ft_execve(node->exec, terminal);
 		return ;
@@ -83,12 +85,15 @@ void	execute(t_terminal *terminal)
 {
 	if (!terminal->commands->exec && !terminal->commands->redir
 		&& !terminal->commands->right_tree)
-			return ;
+		return ;
 	if (!terminal->commands->right_tree && terminal->commands->exec
 		&& (terminal->commands->exec->type.sub_tk == TK_BUILT_IN
 			|| terminal->commands->exec->type.sub_tk == TK_EQL))
 		ft_execbi(terminal->commands->exec, terminal);
 	else
+	{
+		set_child_sig();
 		ft_abst(terminal);
+	}
 	return ;
 }

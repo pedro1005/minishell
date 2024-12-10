@@ -38,16 +38,20 @@ char	*join_next(t_lexer *lexer, const char *token, t_dyn_arr *env, \
 	char	curr;
 	char	*join;
 	char	*tmp;
+	t_token	*tmp_tk;
 
 	curr = *get_char(lexer, 0);
+	tmp_tk = NULL;
 	if (curr && !ft_isspace(curr) && curr != '|' && curr != '<' && curr != '>'
 	 && (curr == LIT_QUOTE || curr == LIT_DOUBLE_QUOTE || is_quoted) )
 	{
-		join = get_token(env, lexer)->s;
+		tmp_tk = get_token(env, lexer);
+		join = tmp_tk->s;
 		tmp = (char *)token;
 		token = ft_strjoin(token, join);
 		free(tmp);
 		free(join);
+		free(tmp_tk);
 	}
     	if (ft_strcmp((char *)token, (const char *)("$")) == 0 && curr =='"')
 		{

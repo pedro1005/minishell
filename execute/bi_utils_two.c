@@ -60,7 +60,6 @@ void	export_utils(t_terminal *term, int *i, char **args)
 		write(2, "export: ", 8);
 		write(2, args[*i], ft_strlen(args[*i]));
 		write(2, " not a valid identifier.\n", 25);
-		//printf("export: %s not a valid identifier.\n", args[*i]);
 		return ;
 	}
 	if (ft_strchr((const char *)args[*i], '='))

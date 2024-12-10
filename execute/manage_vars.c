@@ -32,16 +32,16 @@ char	**ft_allocate_env_buffer(t_dyn_arr *envp, int var_exist)
 	char	**buf;
 
 	if (var_exist)
-    {
+	{
 		buf = (char **)malloc(sizeof(char *) * (envp->len + 1));
-	    memset(buf, 0, sizeof(char *) * (envp->len + 1));
-    }
-    else
-    {
+		memset(buf, 0, sizeof(char *) * (envp->len + 1));
+	}
+	else
+	{
 		buf = (char **)malloc(sizeof(char *) * (envp->len + 2));
-        memset(buf, 0, sizeof(char *) * (envp->len + 2));
-    }
-    return (buf);
+		memset(buf, 0, sizeof(char *) * (envp->len + 2));
+	}
+	return (buf);
 }
 
 char	**ft_copy_env_with_var(t_dyn_arr *envp, char *var, int var_exist)

@@ -20,7 +20,7 @@ void	ft_wait_child(t_tree *root, t_terminal *terminal)
 	}
 }
 
-int	ft_get_n(char **buf) //+
+int	ft_get_n(char **buf)
 {
 	int	i;
 
@@ -34,30 +34,32 @@ int	ft_get_n(char **buf) //+
 	return (i);
 }
 
-void	write_here_doc(int write_fd, char **delim, t_terminal *terminal)
+void	exec_rh(char *line, int *i, char **delim)
 {
-	char	*line;
-	int		n_delim;
-	int		i;
+	int	n_delim;
 
 	n_delim = ft_get_n(delim);
-	i = 0;
-	while (i < (n_delim - 1))
+	*i = 0;
+	while (*i < (n_delim - 1))
 	{
 		line = readline("> ");
 		if (!line)
 		{
 			write(2, "minishell: warning: here-document ", 34);
 			write(2, "delimited by end-of-file (wanted '", 34);
-			write(2, delim[i], ft_strlen(delim[i]));
+			write(2, delim[*i], ft_strlen(delim[*i]));
 			write(2, "')\n", 3);
-			i++;
+			(*i)++;
 			continue ;
 		}
-		else if (ft_strcmp(line, delim[i]) == 0)
-			i++;
+		else if (ft_strcmp(line, delim[*i]) == 0)
+			(*i)++;
 		free(line);
 	}
+}
+
+void	exec_rh_f(char *line, char **delim, int *i, int write_fd)
+{
 	while (1)
 	{
 		line = readline("> ");
@@ -65,12 +67,12 @@ void	write_here_doc(int write_fd, char **delim, t_terminal *terminal)
 		{
 			write(2, "minishell: warning: here-document ", 34);
 			write(2, "delimited by end-of-file (wanted '", 34);
-			write(2, delim[i], ft_strlen(delim[i]));
+			write(2, delim[*i], ft_strlen(delim[*i]));
 			write(2, "')\n", 3);
-			i++;
+			(*i)++;
 			break ;
 		}
-		else if (ft_strcmp(line, delim[i]) == 0)
+		else if (ft_strcmp(line, delim[*i]) == 0)
 		{
 			free(line);
 			break ;
@@ -79,6 +81,17 @@ void	write_here_doc(int write_fd, char **delim, t_terminal *terminal)
 		write(write_fd, "\n", 1);
 		free(line);
 	}
+}
+
+void	write_here_doc(int write_fd, char **delim, t_terminal *terminal)
+{
+	char	*line;
+	int		i;
+
+	i = 0;
+	line = NULL;
+	exec_rh(line, &i, delim);
+	exec_rh_f(line, delim, &i, write_fd);
 	close(write_fd);
 	ft_free_cmds(terminal);
 	free_dyn_arr(terminal->envp);

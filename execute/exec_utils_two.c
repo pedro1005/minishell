@@ -28,7 +28,6 @@ void	ft_exec_fd_child(t_exec *exec, int input_fd,
 	{
 		g_signals = 0;
 		ft_execve(exec, terminal);
-		//perror("Error executing command");
 		exit(EXIT_FAILURE);
 	}
 	else if (exec->type.sub_tk == TK_BUILT_IN)

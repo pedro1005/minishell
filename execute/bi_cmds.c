@@ -27,6 +27,16 @@ void	ft_exit(t_terminal *terminal, t_exec *bi)
 	exit(g_signals);
 }
 
+void	cd_no_path(char *path, char *home, char *current_pwd)
+{
+	write(2, "cd: ", 4);
+	write(2, path, ft_strlen(path));
+	write(2, ": No such file or directory\n", 28);
+	g_signals = 1;
+	free(current_pwd);
+	free(home);
+}
+
 void	ft_cd(char **path, t_terminal *terminal)
 {
 	char		*home;
@@ -50,14 +60,10 @@ void	ft_cd(char **path, t_terminal *terminal)
 	}
 	else if (chdir(path[1]) != 0)
 	{
-		write(2, "cd: ", 4);
-		write(2, path[1], ft_strlen(path[1]));
-		write(2, ": No such file or directory\n", 28);
-		g_signals = 1;
+		cd_no_path(path[1], home, current_pwd);
 		return ;
 	}
 	cd_utils_two(home, oldpwd, current_pwd, terminal);
-	g_signals = 0;
 }
 
 void	ft_echo(char **args)

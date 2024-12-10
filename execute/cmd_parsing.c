@@ -70,32 +70,56 @@ char	**ft_get_args_i(t_token **tokens, int index)
 {
 	char		**files;
 	int			i;
-	const int	n_files = ft_get_n_args(tokens, index);
 	int			j;
 
 	i = index;
 	j = 0;
-	if (!n_files)
+	if (!ft_get_n_args(tokens, index))
 		return (NULL);
-	files = (char **)malloc(sizeof(char *) * (n_files + 1));
+	files = (char **)malloc(sizeof(char *)
+			* (ft_get_n_args(tokens, index) + 1));
 	if (!files)
 		return (NULL);
 	while (tokens[i] && tokens[i]->type.sub_tk != TK_PIPE)
 	{
-		if (tokens[i]->type.sub_tk == TK_REDIR_IN)
+		i++;
+		if (tokens[i - 1]->type.sub_tk == TK_REDIR_IN)
 		{
-			i++;
-			while (tokens[i] && tokens[i]->type.main_tk == TK_WORD && tokens[i]->type.sub_tk == TK_FILENAME) //added filename
+			while (tokens[i]
+				&& tokens[i]->type.main_tk == TK_WORD
+				&& tokens[i]->type.sub_tk == TK_FILENAME)
 				files[j++] = ft_strdup(tokens[i++]->s);
 		}
-		else
-			i++;
 	}
 	files[j] = NULL;
 	return (files);
 }
 
 //get_redir() helper
+
+void	check_errno(char *args)
+{
+	write(2, args, ft_strlen(args));
+	write(2, ": ", 2);
+	if (errno == ENOENT)
+	{
+		write(2, "file not found\n", 15);
+		g_signals = 2;
+	}
+	else if (errno == EACCES)
+	{
+		write(2, "permission denied\n", 18);
+		g_signals = 13;
+	}
+	else
+	{
+		write(2, "error: ", 7);
+		write(2, strerror(errno), ft_strlen(strerror(errno)));
+		write(2, "\n", 1);
+		g_signals = 1;
+	}
+}
+
 int	ft_check_err_args(char **args)
 {
 	struct stat	file_stat;
@@ -108,27 +132,7 @@ int	ft_check_err_args(char **args)
 			i++;
 		else
 		{
-			write(2, args[i], ft_strlen(args[i]));
-			write(2, ": ", 2);
-			if (errno == ENOENT)
-			{
-				write(2, "file not found\n", 15);
-				g_signals = 2;
-			}
-			else if (errno == EACCES)
-			{
-				write(2, "permission denied\n", 18);
-				g_signals = 13;
-			}
-			else
-			{
-				write(2, "error: ", 7);
-				write(2, strerror(errno), ft_strlen(strerror(errno)));
-				write(2, "\n", 1);
-				g_signals = 1;
-			}
-			//write(2, args[i], ft_strlen(args[i]));
-			//write(2, ": not a file or directory\n", 26);
+			check_errno(args[i]);
 			return (1);
 		}
 	}

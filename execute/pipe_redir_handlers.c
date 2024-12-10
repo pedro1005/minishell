@@ -44,7 +44,6 @@ int	handle_here_document(char **delim, t_terminal *terminal)
 	if (hd_pid == 0)
 	{
 		close(hd_fd[0]);
-		//set_child_sig();
 		set_heredoc_sig();
 		write_here_doc(hd_fd[1], delim, terminal);
 		perror("write_here_doc should not return");

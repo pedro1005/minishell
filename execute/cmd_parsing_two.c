@@ -43,23 +43,13 @@ t_tree	*ft_get_pipe(t_token **tokens, int *index)
 	return (new_tree);
 }
 
-//get_redir() helper
-char	**ft_get_delim(t_token **tokens, int index)
+char	**fill_delim(int i, int index, t_token **tokens, int n_delim)
 {
-	int		i;
-	int		n_delim; //+
-	char	**delim; //+
+	char	**delim;
 
-	i = index;
-	delim = NULL;
-	n_delim = 0; //+
-	while (tokens[i] && tokens[i]->type.sub_tk != TK_PIPE)
-	{
-		if (tokens[i]->type.sub_tk == TK_EOF) //+
-			n_delim++; //+
-		i++;
-	}
 	delim = (char **)malloc(sizeof(char *) * (n_delim + 1));
+	if (!delim)
+		return (NULL);
 	delim[n_delim] = NULL;
 	n_delim--;
 	while (i >= index && (n_delim >= 0))
@@ -71,6 +61,26 @@ char	**ft_get_delim(t_token **tokens, int index)
 		}
 		i--;
 	}
+	return (delim);
+}
+
+//get_redir() helper
+char	**ft_get_delim(t_token **tokens, int index)
+{
+	int		i;
+	int		n_delim;
+	char	**delim;
+
+	i = index;
+	delim = NULL;
+	n_delim = 0;
+	while (tokens[i] && tokens[i]->type.sub_tk != TK_PIPE)
+	{
+		if (tokens[i]->type.sub_tk == TK_EOF)
+			n_delim++;
+		i++;
+	}
+	delim = fill_delim(i, index, tokens, n_delim);
 	return (delim);
 }
 

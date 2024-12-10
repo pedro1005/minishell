@@ -31,38 +31,51 @@ void	unset_utils(char **envp, char **token, t_dyn_arr env, int *i)
 void	cd_utils_two(char *home, char *oldpwd, char *current_pwd,
 			t_terminal *term)
 {
+	char	*pwd;
+
+	pwd = ft_get_pwd();
 	oldpwd = ft_strjoin("OLDPWD=", current_pwd);
 	if (ft_var_exist((char **)term->envp.buf, oldpwd))
-        	ft_add_var(&term->envp, oldpwd);
+		ft_add_var(&term->envp, oldpwd);
 	ft_add_var(&term->envt, oldpwd);
 	free(oldpwd);
-	current_pwd = ft_strjoin("PWD=", ft_get_pwd());
+	free(current_pwd);
+	current_pwd = ft_strjoin("PWD=", pwd);
 	if (ft_var_exist((char **)term->envp.buf, current_pwd))
-        	ft_add_var(&term->envp, current_pwd);
+		ft_add_var(&term->envp, current_pwd);
 	ft_add_var(&term->envt, current_pwd);
 	free(current_pwd);
 	free(home);
+	free(pwd);
+}
+
+void	cd_check_home(char *home)
+{
+	if (chdir(home) != 0)
+	{
+		write(2, "cd: ", 4);
+		write(2, home, ft_strlen(home));
+		write(2, ": No such file or directory\n", 28);
+		g_signals = 1;
+	}
 }
 
 void	cd_utils(char *home, char *oldpwd, char *current_pwd, t_terminal *term)
 {
 	if (!home)
+	{
 		write(2, "cd: HOME not set\n", 17);
+		free(current_pwd);
+	}
 	else
 	{
-		if (chdir(home) != 0)
-		{
-			write(2, "cd: ", 4);
-			write(2, home, ft_strlen(home));
-			write(2, ": No such file or directory\n", 28);
-			g_signals = 1;
-		}
+		cd_check_home(home);
 		oldpwd = ft_strjoin("OLDPWD=", current_pwd);
 		if (ft_var_exist((char **)term->envp.buf, oldpwd))
 			ft_add_var(&term->envp, oldpwd);
 		ft_add_var(&term->envt, oldpwd);
 		free(oldpwd);
-		oldpwd = NULL;
+		free(current_pwd);
 		current_pwd = ft_strjoin("PWD=", home);
 		if (ft_var_exist((char **)term->envp.buf, current_pwd))
 			ft_add_var(&term->envp, current_pwd);
