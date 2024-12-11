@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pedmonte & gamado-x <marvin@42.fr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/11 19:07:22 by pedmonte          #+#    #+#             */
+/*   Updated: 2024/12/11 19:07:24 by pedmonte         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../ms.h"
 
 void	ft_set_subtype(t_token **tokens)
@@ -22,9 +34,8 @@ void	ft_set_subtype(t_token **tokens)
 
 t_tk_subtype	ft_get_op_subtype(const char *input)
 {
-	int	i;
-	static const struct {t_tk_subtype subtype; const char *symbol;}
-	subtypes[] = {
+	int				i;
+	const t_op_type	subtypes[] = {
 	{TK_PIPE, "|"},
 	{TK_REDIR_IN, "<"},
 	{TK_REDIR_OUT, ">"},
@@ -37,7 +48,7 @@ t_tk_subtype	ft_get_op_subtype(const char *input)
 	while (subtypes[i].symbol != NULL)
 	{
 		if (ft_strcmp((char *)subtypes[i].symbol, input) == 0)
-			return (subtypes[i].subtype);
+			return (subtypes[i].type);
 		i++;
 	}
 	return (TK_NONE);

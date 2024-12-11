@@ -1,6 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pedmonte & gamado-x <marvin@42.fr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/11 19:08:16 by pedmonte          #+#    #+#             */
+/*   Updated: 2024/12/11 19:08:19 by pedmonte         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ms.h"
 
 int	g_signals;
+
+t_dyn_arr	*ft_init_tokens(void)
+{
+	t_dyn_arr	*tokens;
+
+	tokens = (t_dyn_arr *)malloc(sizeof(t_dyn_arr));
+	if (!tokens)
+		return (NULL);
+	memset(tokens, 0, sizeof(t_dyn_arr));
+	*tokens = dyn_arr_new();
+	return (tokens);
+}
 
 t_dyn_arr	*tokenize(t_dyn_arr *env, const char *in)
 {
@@ -8,10 +32,8 @@ t_dyn_arr	*tokenize(t_dyn_arr *env, const char *in)
 	t_lexer		lexer;
 	t_token		*token;
 
-	tokens = (t_dyn_arr *)malloc(sizeof(t_dyn_arr));
-	memset(tokens, 0, sizeof(t_dyn_arr));
+	tokens = ft_init_tokens();
 	token = NULL;
-	*tokens = dyn_arr_new();
 	lexer = (t_lexer){.input = in, .is_heredoc = false};
 	while (true)
 	{
@@ -25,11 +47,9 @@ t_dyn_arr	*tokenize(t_dyn_arr *env, const char *in)
 		else if (token)
 			dyn_arr_push(tokens, token);
 		else
-		{
-			dyn_arr_push(tokens, NULL);
 			break ;
-		}
 	}
+	dyn_arr_push(tokens, NULL);
 	return (tokens);
 }
 
