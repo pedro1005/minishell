@@ -43,7 +43,7 @@ char	*join_next(t_lexer *lexer, const char *token, t_dyn_arr *env, \
 	curr = *get_char(lexer, 0);
 	tmp_tk = NULL;
 	if (curr && !ft_isspace(curr) && curr != '|' && curr != '<' && curr != '>'
-	 && (curr == LIT_QUOTE || curr == LIT_DOUBLE_QUOTE || is_quoted) )
+		&& (curr == LIT_QUOTE || curr == LIT_DOUBLE_QUOTE || is_quoted))
 	{
 		tmp_tk = get_token(env, lexer);
 		join = tmp_tk->s;
@@ -53,10 +53,10 @@ char	*join_next(t_lexer *lexer, const char *token, t_dyn_arr *env, \
 		free(join);
 		free(tmp_tk);
 	}
-    	if (ft_strcmp((char *)token, (const char *)("$")) == 0 && curr =='"')
-		{
-        	token = ft_strdup("");
-			get_char(lexer, -1);
-		}
+	if (ft_strcmp((char *)token, (const char *)("$")) == 0 && curr == '"')
+	{
+		token = ft_strdup("");
+		get_char(lexer, -1);
+	}
 	return ((char *)token);
 }

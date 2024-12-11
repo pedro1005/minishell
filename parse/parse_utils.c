@@ -13,8 +13,9 @@ void	ft_set_subtype(t_token **tokens)
 			tokens[i]->type.sub_tk = ft_get_op_subtype(tokens[i]->s);
 		else if (tokens[i]->type.main_tk == TK_WORD)
 			tokens[i]->type.sub_tk = ft_get_wrd_subtype(tokens, i);
-		if (tokens[i]->type.main_tk == TK_WORD && tokens[i]->type.sub_tk == TK_NONE)	//+
-			tokens[i]->type.sub_tk = TK_ARG;												//+
+		if (tokens[i]->type.main_tk == TK_WORD
+			&& tokens[i]->type.sub_tk == TK_NONE)
+			tokens[i]->type.sub_tk = TK_ARG;
 		i++;
 	}
 }
@@ -22,16 +23,14 @@ void	ft_set_subtype(t_token **tokens)
 t_tk_subtype	ft_get_op_subtype(const char *input)
 {
 	int	i;
-	static const struct {
-		t_tk_subtype subtype;
-		const char *symbol;
-	} subtypes[] = {
-		{TK_PIPE, "|"},
-		{TK_REDIR_IN, "<"},
-		{TK_REDIR_OUT, ">"},
-		{TK_REDIR_APP, ">>"},
-		{TK_REDIR_HERE, "<<"},
-		{TK_NONE, NULL}
+	static const struct {t_tk_subtype subtype; const char *symbol;}
+	subtypes[] = {
+	{TK_PIPE, "|"},
+	{TK_REDIR_IN, "<"},
+	{TK_REDIR_OUT, ">"},
+	{TK_REDIR_APP, ">>"},
+	{TK_REDIR_HERE, "<<"},
+	{TK_NONE, NULL}
 	};
 
 	i = 0;

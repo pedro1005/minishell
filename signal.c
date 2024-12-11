@@ -16,7 +16,7 @@ void	set_child_sig(void)
 	signal(SIGQUIT, handle_child_sig);
 }
 
-void	set_heredoc_sig()
+void	set_heredoc_sig(void)
 {
 	signal(SIGINT, handle_heredoc_sig);
 	signal(SIGQUIT, SIG_IGN);

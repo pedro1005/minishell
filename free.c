@@ -1,20 +1,20 @@
 #include "ms.h"
 
-void    free_dyn_arr(t_dyn_arr dy_arr)
+void	free_dyn_arr(t_dyn_arr dy_arr)
 {
-    t_dyn_arr temp;
-    int     i;
+	t_dyn_arr	temp;
+	int			i;
 
-    i = 0;
-    temp = dy_arr;
-    while(temp.buf && temp.buf[i])
-    {
-        free(temp.buf[i]);
-        temp.buf[i] = NULL;
-        i++;
-    }
-    free(temp.buf);
-    temp.buf = NULL;
+	i = 0;
+	temp = dy_arr;
+	while (temp.buf && temp.buf[i])
+	{
+		free(temp.buf[i]);
+		temp.buf[i] = NULL;
+		i++;
+	}
+	free(temp.buf);
+	temp.buf = NULL;
 }
 
 void	ft_free_tokens(t_dyn_arr *tokens)
@@ -26,7 +26,7 @@ void	ft_free_tokens(t_dyn_arr *tokens)
 	temp = tokens;
 	list = (t_token **)temp->buf;
 	i = 0;
-	while(list[i])
+	while (list[i])
 	{
 		free(list[i]->s);
 		list[i]->s = NULL;
@@ -67,20 +67,20 @@ void	ft_free_cmds(t_terminal *terminal)
 
 void	ft_free_redir(t_tree *cmd)
 {
-    int i;
+	int	i;
 
 	if (!cmd->redir)
 		return ;
-    i = 0;
-    while (cmd->redir->args_out && cmd->redir->args_out[i])
-    {
-        free(cmd->redir->args_out[i]->s);
-        cmd->redir->args_out[i]->s = NULL;
-        free(cmd->redir->args_out[i]);
-        cmd->redir->args_out[i] = NULL;
-        i++;
-    }
-    free(cmd->redir->args_out);
+	i = 0;
+	while (cmd->redir->args_out && cmd->redir->args_out[i])
+	{
+		free(cmd->redir->args_out[i]->s);
+		cmd->redir->args_out[i]->s = NULL;
+		free(cmd->redir->args_out[i]);
+		cmd->redir->args_out[i] = NULL;
+		i++;
+	}
+	free(cmd->redir->args_out);
 	ft_free_args(cmd->redir->args_in);
 	ft_free_exe(cmd->redir->exec);
 	if (cmd->redir->delim)
@@ -94,9 +94,9 @@ void	ft_free_args(char **args)
 	int	i;
 
 	i = 0;
-	if(!args)
+	if (!args)
 		return ;
-	while(args[i])
+	while (args[i])
 	{
 		free(args[i]);
 		args[i] = NULL;

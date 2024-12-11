@@ -57,7 +57,7 @@ int	ft_strcmp(char *str, const char *dest)
 
 int	ft_isnumber(char *str)
 {
-	int i;
+	int	i;
 
 	if (str[0] == '\0')
 		return (0);

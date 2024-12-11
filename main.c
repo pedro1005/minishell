@@ -11,7 +11,7 @@ t_dyn_arr	*tokenize(t_dyn_arr *env, const char *in)
 	tokens = (t_dyn_arr *)malloc(sizeof(t_dyn_arr));
 	memset(tokens, 0, sizeof(t_dyn_arr));
 	token = NULL;
-    *tokens = dyn_arr_new();
+	*tokens = dyn_arr_new();
 	lexer = (t_lexer){.input = in, .is_heredoc = false};
 	while (true)
 	{
@@ -22,7 +22,7 @@ t_dyn_arr	*tokenize(t_dyn_arr *env, const char *in)
 			free(token);
 			continue ;
 		}
-        else if (token)
+		else if (token)
 			dyn_arr_push(tokens, token);
 		else
 		{

@@ -26,7 +26,7 @@ int	ft_get_synt_err(t_token **tokens)
 		else if (!tokens[i + 1] && tokens[i]->type.main_tk == TK_OPERATOR)
 			return (synt_err_msg("newline"));
 		if (tokens[i + 1] && ((tokens[i]->type.sub_tk == TK_PIPE
-			&& tokens[i + 1]->type.sub_tk == TK_PIPE)))
+					&& tokens[i + 1]->type.sub_tk == TK_PIPE)))
 			return (synt_err_msg(tokens[i + 1]->s));
 		i++;
 	}
