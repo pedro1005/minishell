@@ -83,7 +83,7 @@ typedef struct s_type
 
 typedef struct s_op_type
 {
-	t_tk_subtype	*type;
+	t_tk_subtype	type;
 	char			*symbol;
 }	t_op_type;
 
