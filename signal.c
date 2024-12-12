@@ -57,6 +57,7 @@ void	handle_child_sig(int signbr)
 	if (signbr == SIGQUIT)
 	{
 		write(2, "Quit(core dumped)\n", 17);
+		write(1, "\n", 1);
 		rl_on_new_line();
 		g_signals = 131;
 	}
