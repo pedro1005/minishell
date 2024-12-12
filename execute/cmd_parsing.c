@@ -23,7 +23,7 @@ t_exec	*ft_get_exec_r(t_token **tokens, int index)
 	if (!tokens[i] || tokens[i]->type.main_tk != TK_COMMAND)
 		return (NULL);
 	exec = (t_exec *)malloc(sizeof(t_exec));
-	memset(exec, 0, sizeof(t_exec));
+	ft_memset(exec, 0, sizeof(t_exec));
 	exec->type = tokens[i]->type;
 	exec->name = ft_strdup(tokens[i]->s);
 	exec->args = ft_get_args(tokens, i);
@@ -45,7 +45,7 @@ t_exec	*ft_get_exec_l(t_token **tokens, int index)
 	if (tokens[i]->type.main_tk != TK_COMMAND)
 		return (NULL);
 	exec = (t_exec *)malloc(sizeof(t_exec));
-	memset(exec, 0, sizeof(t_exec));
+	ft_memset(exec, 0, sizeof(t_exec));
 	exec->type = tokens[i]->type;
 	exec->name = ft_strdup(tokens[i]->s);
 	exec->args = ft_get_args(tokens, i);

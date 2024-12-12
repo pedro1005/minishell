@@ -72,7 +72,6 @@ void	path_exec_cmds(char *full_path, char *name, t_terminal *term, \
 		execute_command(full_path, exec, term);
 		free(full_path);
 		full_path = NULL;
-		token = ft_strtok(NULL, ":");
 	}
 	free(path_env);
 	free(full_path);

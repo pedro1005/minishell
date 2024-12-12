@@ -18,7 +18,7 @@ static void	update_cap(t_dyn_arr *data)
 
 	data->arr_cap *= 2;
 	new_buf = malloc(sizeof(void *) * data->arr_cap);
-	memset(new_buf, 0, sizeof(void *) * data->arr_cap);
+	ft_memset(new_buf, 0, sizeof(void *) * data->arr_cap);
 	ft_memcpy(new_buf, data->buf, data->len * sizeof(void *));
 	free(data->buf);
 	data->buf = NULL;
@@ -41,6 +41,6 @@ t_dyn_arr	dyn_arr_new(void)
 	arr.arr_cap = INIT_CAP;
 	arr.buf = (void **)malloc(sizeof(void *) * INIT_CAP);
 	if (arr.buf)
-		memset(arr.buf, 0, sizeof(void *) * INIT_CAP);
+		ft_memset(arr.buf, 0, sizeof(void *) * INIT_CAP);
 	return (arr);
 }

@@ -21,7 +21,7 @@ t_dyn_arr	*ft_init_tokens(void)
 	tokens = (t_dyn_arr *)malloc(sizeof(t_dyn_arr));
 	if (!tokens)
 		return (NULL);
-	memset(tokens, 0, sizeof(t_dyn_arr));
+	ft_memset(tokens, 0, sizeof(t_dyn_arr));
 	*tokens = dyn_arr_new();
 	return (tokens);
 }
@@ -136,11 +136,12 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	g_signals = 0;
-	memset(&terminal, 0, sizeof(t_terminal));
+	ft_memset(&terminal, 0, sizeof(t_terminal));
 	terminal.envp = env_init(envp);
 	terminal.envt = env_init(envp);
 	rpel(&terminal);
 	ft_free_args((char **)terminal.envp.buf);
 	ft_free_args((char **)terminal.envt.buf);
+	rl_clear_history();
 	return (0);
 }

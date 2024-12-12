@@ -72,7 +72,7 @@ t_exec	*ft_get_redir_ex(t_token **tokens, int index)
 		exec = (t_exec *)malloc(sizeof(t_exec));
 	else
 		return (NULL);
-	memset(exec, 0, sizeof(t_exec));
+	ft_memset(exec, 0, sizeof(t_exec));
 	exec->name = ft_get_rdrexname(tokens, i);
 	exec->args = ft_get_rdrexargs(tokens, i);
 	exec->type.main_tk = TK_COMMAND;

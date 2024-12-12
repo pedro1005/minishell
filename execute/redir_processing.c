@@ -19,7 +19,7 @@ t_redir	*ft_init_redir(void)
 	redir = (t_redir *)malloc(sizeof(t_redir));
 	if (!redir)
 		return (NULL);
-	memset(redir, 0, sizeof(t_redir));
+	ft_memset(redir, 0, sizeof(t_redir));
 	return (redir);
 }
 

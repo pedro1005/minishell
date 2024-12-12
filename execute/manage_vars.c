@@ -46,12 +46,12 @@ char	**ft_allocate_env_buffer(t_dyn_arr *envp, int var_exist)
 	if (var_exist)
 	{
 		buf = (char **)malloc(sizeof(char *) * (envp->len + 1));
-		memset(buf, 0, sizeof(char *) * (envp->len + 1));
+		ft_memset(buf, 0, sizeof(char *) * (envp->len + 1));
 	}
 	else
 	{
 		buf = (char **)malloc(sizeof(char *) * (envp->len + 2));
-		memset(buf, 0, sizeof(char *) * (envp->len + 2));
+		ft_memset(buf, 0, sizeof(char *) * (envp->len + 2));
 	}
 	return (buf);
 }

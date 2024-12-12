@@ -19,7 +19,7 @@ t_tree	*ft_get_cmds(t_token **tokens)
 
 	i = 0;
 	head = (t_tree *)malloc(sizeof(t_tree));
-	memset(head, 0, sizeof(t_tree));
+	ft_memset(head, 0, sizeof(t_tree));
 	head->redir = ft_get_redir(tokens, i);
 	if (!head->redir)
 		head->exec = ft_get_exec_r(tokens, i);
@@ -40,7 +40,7 @@ t_tree	*ft_get_pipe(t_token **tokens, int *index)
 	if (!tokens[*index] || tokens[*index]->type.sub_tk != TK_PIPE)
 		return (NULL);
 	new_tree = (t_tree *)malloc(sizeof(t_tree));
-	memset(new_tree, 0, sizeof(t_tree));
+	ft_memset(new_tree, 0, sizeof(t_tree));
 	i = *index;
 	while (tokens[i])
 	{

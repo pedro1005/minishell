@@ -60,6 +60,7 @@ t_token	*get_token(t_dyn_arr *env, t_lexer *lexer)
 		++lexer->input;
 	while (*lexer->input)
 	{
+		t = NULL;
 		c = *get_char(lexer, i);
 		t = lexical_a(c, lexer, env, i);
 		if (t)

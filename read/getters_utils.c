@@ -67,6 +67,7 @@ char	*join_next(t_lexer *lexer, const char *token, t_dyn_arr *env, \
 	}
 	if (ft_strcmp((char *)token, (const char *)("$")) == 0 && curr == '"')
 	{
+		free((char *)token);
 		token = ft_strdup("");
 		get_char(lexer, -1);
 	}
