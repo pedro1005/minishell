@@ -18,6 +18,8 @@ char	*get_var_name(char *var)
 	char	*name;
 
 	i = 0;
+	if (!var)
+		return (NULL);
 	while (var[i] && var[i] != '=')
 		i += 1;
 	name = (char *)malloc((sizeof(char) * i) + 1);

@@ -28,16 +28,25 @@ int	pos_env_var(t_dyn_arr *env, char *find)
 	size_t	i;
 	size_t	equal_sign;
 	char	*env_var;
+	char	*var_name;
 
 	i = 0;
 	equal_sign = 0;
+	var_name = NULL;
 	while (find[equal_sign] && find[equal_sign] != '=')
 		equal_sign += 1;
 	while (i < env->len)
 	{
 		env_var = env->buf[i];
-		if (env_var && ft_strncmp(find, env_var, equal_sign) == 0)
+		var_name = get_var_name(env_var);
+		if (env_var && ft_strncmp(find, env_var, equal_sign) == 0
+			&& (equal_sign == (ft_strlen(var_name))))
+		{
+			free(var_name);
 			return (i);
+		}
+		if (var_name)
+			free(var_name);
 		i += 1;
 	}
 	return (-1);
