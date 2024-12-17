@@ -52,3 +52,47 @@ char	**ft_get_args(t_token **tokens, int index)
 	args[j] = NULL;
 	return (args);
 }
+
+//get_redir() helper
+
+void	check_errno(char *args)
+{
+	write(2, args, ft_strlen(args));
+	write(2, ": ", 2);
+	if (errno == ENOENT)
+	{
+		write(2, "file not found\n", 15);
+		g_signals = 2;
+	}
+	else if (errno == EACCES)
+	{
+		write(2, "permission denied\n", 18);
+		g_signals = 13;
+	}
+	else
+	{
+		write(2, "error: ", 7);
+		write(2, strerror(errno), ft_strlen(strerror(errno)));
+		write(2, "\n", 1);
+		g_signals = 1;
+	}
+}
+
+int	ft_check_err_args(char **args)
+{
+	struct stat	file_stat;
+	int			i;
+
+	i = 0;
+	while (args && args[i])
+	{
+		if (stat(args[i], &file_stat) == 0)
+			i++;
+		else
+		{
+			check_errno(args[i]);
+			return (1);
+		}
+	}
+	return (0);
+}

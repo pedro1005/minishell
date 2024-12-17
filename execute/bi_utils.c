@@ -124,38 +124,3 @@ void	exec_bi_util(char *name, t_terminal *term, t_exec *bi)
 			ft_add_var(&term->envp, bi->name);
 	}
 }
-
-int	ft_is_nflag(char *str)
-{
-	int	i;
-
-	i = 1;
-	if (str[0] != '-')
-		return (0);
-	while (str[i])
-	{
-		if (str[i] != 'n')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-void	echo_util(char **args, int *nflag, int *i)
-{
-	*i = 1;
-	if (!args || !args[*i])
-	{
-		printf("\n");
-		g_signals = 0;
-		return ;
-	}
-	while (args && args[*i] && args[*i][0] == '-')
-	{
-		if (ft_is_nflag(args[*i]))
-			*nflag = 1;
-		else
-			break ;
-		(*i)++;
-	}
-}
