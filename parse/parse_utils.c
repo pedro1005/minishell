@@ -64,3 +64,31 @@ t_tk_subtype	ft_get_cmd_subtype(const char *input)
 		return (TK_EQL);
 	return (TK_EXEC);
 }
+
+int	ft_check_quote_error(char *in)
+{
+	int		get_error;
+	int		i;
+	char	quote;
+
+	i = 0;
+	get_error = 0;
+	while (in && in[i])
+	{
+		if (in[i] == '\'' || in[i] == '"')
+		{
+			quote = in[i++];
+			get_error = 1;
+			while (in[i] && in[i] != quote)
+				i++;
+			if (in[i] == quote)
+			{
+				get_error = 0;
+				i++;
+			}
+		}
+		else
+			i++;
+	}
+	return (get_error);
+}

@@ -207,6 +207,7 @@ void				ft_set_tktype(t_token **tokens);
 char				*help_expand(char *buf, t_dyn_arr *env, char *var);
 char				*replace_var(const char *s, const char *sub, \
 					const char *with);
+int					ft_check_quote_error(char *in);
 
 //commands
 t_tree				*ft_get_cmds(t_token **tokens);

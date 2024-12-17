@@ -88,19 +88,3 @@ void	export_utils(t_terminal *term, int *i, char **args)
 	else
 		ft_add_var(&term->envp, args[*i]);
 }
-
-void	ft_env(t_dyn_arr env)
-{
-	const char	**temp = (const char **)env.buf;
-	int			i;
-
-	i = 0;
-	while (temp[i])
-	{
-		if (ft_strchr(temp[i], '='))
-			printf("%s\n", temp[i++]);
-		else
-			i++;
-	}
-	g_signals = 0;
-}

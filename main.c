@@ -29,7 +29,7 @@ t_dyn_arr	*ft_init_tokens(void)
 t_dyn_arr	*tokenize(t_dyn_arr *env, const char *in)
 {
 	t_dyn_arr	*tokens;
-	t_lexeme		lx;
+	t_lexeme	lx;
 	t_token		*token;
 
 	tokens = ft_init_tokens();
@@ -51,34 +51,6 @@ t_dyn_arr	*tokenize(t_dyn_arr *env, const char *in)
 	}
 	dyn_arr_push(tokens, NULL);
 	return (tokens);
-}
-
-int	ft_check_quote_error(char *in)
-{
-	int		get_error;
-	int		i;
-	char	quote;
-
-	i = 0;
-	get_error = 0;
-	while (in && in[i])
-	{
-		if (in[i] == '\'' || in[i] == '"')
-		{
-			quote = in[i++];
-			get_error = 1;
-			while (in[i] && in[i] != quote)
-				i++;
-			if (in[i] == quote)
-			{
-				get_error = 0;
-				i++;
-			}
-		}
-		else
-			i++;
-	}
-	return (get_error);
 }
 
 static size_t	mechanism(t_terminal *terminal, const char *in)
