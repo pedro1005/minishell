@@ -29,15 +29,15 @@ t_dyn_arr	*ft_init_tokens(void)
 t_dyn_arr	*tokenize(t_dyn_arr *env, const char *in)
 {
 	t_dyn_arr	*tokens;
-	t_lexer		lexer;
+	t_lexeme		lx;
 	t_token		*token;
 
 	tokens = ft_init_tokens();
 	token = NULL;
-	lexer = (t_lexer){.input = in, .is_heredoc = false};
+	lx = (t_lexeme){.input = in, .has_heredoc = false};
 	while (true)
 	{
-		token = get_token(env, &lexer);
+		token = get_token(env, &lx);
 		if (token && (ft_strcmp(token->s, (const char *)"") == 0))
 		{
 			free (token->s);

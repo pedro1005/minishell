@@ -12,6 +12,17 @@
 
 #include "../ms.h"
 
+char	*get_var_value(char *var)
+{
+	size_t	i;
+
+	i = 0;
+	while (var[i] && var[i] != '=')
+		i += 1;
+	i += 1;
+	return (var + i);
+}
+
 int	pos_env_var(t_dyn_arr *env, char *find)
 {
 	size_t	i;

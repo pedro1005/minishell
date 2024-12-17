@@ -139,12 +139,12 @@ typedef struct s_terminal
 
 }	t_terminal;
 
-typedef struct s_lexer
+typedef struct s_lexeme
 {
 	size_t		i;
 	const char	*input;
-	bool		is_heredoc;
-}	t_lexer;
+	bool		has_heredoc;
+}	t_lexeme;
 
 //Libft
 size_t				ft_strlen(const char *s);
@@ -156,7 +156,6 @@ int					ft_strncmp(const char *s1, const char *s2, size_t n);
 char				*ft_strnstr(const char *big, const char *little, \
 					size_t len);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
-char				*ft_strrchr(const char *s, int c);
 char				*ft_itoa(int n);
 char				*ft_strjoin(char const *s1, char const *s2);
 void				*ft_calloc(size_t nmemb, size_t size);
@@ -193,12 +192,12 @@ t_dyn_arr			dyn_arr_new(void);
 void				dyn_arr_push(t_dyn_arr *data, void *el);
 
 //token handler
-t_token				*get_token(t_dyn_arr *env, t_lexer *lexer);
-static inline char		*get_char(const t_lexer *lexer, size_t i);
-char				*get_operator(t_lexer *lexer);
-char				*get_string(t_lexer *lexer, size_t i, t_dyn_arr *env);
-char				*get_normal(t_lexer *lexer, size_t i, t_dyn_arr *env);
-char				*join_next(t_lexer *lexer, const char *token, \
+t_token				*get_token(t_dyn_arr *env, t_lexeme *lx);
+static inline char		*get_char(const t_lexeme *lx, size_t i);
+char				*get_operator(t_lexeme *lx);
+char				*get_string(t_lexeme *lx, size_t i, t_dyn_arr *env);
+char				*get_normal(t_lexeme *lx, size_t i, t_dyn_arr *env);
+char				*join_next(t_lexeme *lx, const char *token, \
 					t_dyn_arr *env, bool is_quoted);
 char				*expand_token(const char *token, t_dyn_arr *env);
 char				*dollar_sign(const char *s);
@@ -246,7 +245,7 @@ char				*ft_vardup(char **env, char *var_name);
 void				unset_utils(char **envp, char **token, t_dyn_arr env, \
 					int *i);
 int					ft_create_pipe(int fd[2], pid_t *pid);
-int					is_integer(const char *str);
+
 void				ft_print_export(char **envp);
 void				ft_cd(char **path, t_terminal *terminal);
 void				ft_export(t_terminal *terminal, char **args);
@@ -297,9 +296,9 @@ t_tk_subtype		ft_get_wrd_subtype(t_token **input, int i);
 void				execute_command(char *full_path, t_exec *exec, \
 					t_terminal *term);
 
-static inline char	*get_char(const t_lexer *lexer, size_t i)
+static inline char	*get_char(const t_lexeme *lx, size_t i)
 {
-	return ((char *)lexer->input + i);
+	return ((char *)lx->input + i);
 }
 
 #endif 
