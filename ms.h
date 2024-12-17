@@ -296,6 +296,8 @@ t_tk_subtype		ft_get_op_subtype(const char *input);
 t_tk_subtype		ft_get_wrd_subtype(t_token **input, int i);
 void				execute_command(char *full_path, t_exec *exec, \
 					t_terminal *term);
+int					ft_get_synt_err(t_token **tokens);
+int					synt_err_msg(char *token);
 
 static inline char	*get_char(const t_lexeme *lx, size_t i)
 {
