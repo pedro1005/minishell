@@ -16,6 +16,8 @@ void	ft_free_cmds(t_terminal *terminal)
 {
 	t_tree	*cmd;
 
+	if (terminal->is_fd0)
+		close(terminal->fd_cp[1]);
 	if (!terminal->commands)
 		return ;
 	cmd = terminal->commands;

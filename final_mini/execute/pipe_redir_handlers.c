@@ -48,24 +48,25 @@ int	check_heredoc(t_tree *root, int *hd_input_fd, t_terminal *terminal)
 
 int	handle_here_document(char **delim, t_terminal *terminal)
 {
-	int		hd_fd[2];
 	pid_t	hd_pid;
 
-	if (ft_create_pipe(hd_fd, &hd_pid) == -1)
+	if (ft_create_pipe(terminal->fd_cp, &hd_pid) == -1)
 		return (-1);
 	if (hd_pid == 0)
 	{
-		close(hd_fd[0]);
+		close(terminal->fd_cp[0]);
+		terminal->is_fd0 = 1;
 		set_heredoc_sig();
-		write_here_doc(hd_fd[1], delim, terminal);
+		write_here_doc(terminal->fd_cp[1], delim, terminal);
 		perror("write_here_doc should not return");
 		exit(1);
 	}
 	else
 	{
-		close(hd_fd[1]);
+		close(terminal->fd_cp[1]);
+		terminal->is_fd0 = 0;
 		waitpid(hd_pid, NULL, 0);
-		return (hd_fd[0]);
+		return (terminal->fd_cp[0]);
 	}
 }
 

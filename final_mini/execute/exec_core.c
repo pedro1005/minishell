@@ -105,6 +105,7 @@ void	execute(t_terminal *terminal)
 	else
 	{
 		set_child_sig();
+		get_terminal(terminal);
 		ft_abst(terminal);
 	}
 	return ;

@@ -128,11 +128,14 @@ typedef struct s_tree
 	int					status;
 	struct s_tree		*right_tree;
 	struct s_tree		*left_tree;
+
 }	t_tree;
 
 typedef struct s_terminal
 {
 	int			exit;
+	int			fd_cp[2];
+	int			is_fd0;
 	t_dyn_arr	envp;
 	t_dyn_arr	envt;
 	t_tree		*commands;
@@ -178,6 +181,7 @@ void				free_dyn_arr(t_dyn_arr dy_arr);
 void				set_signal(void);
 void				set_child_sig(void);
 void				set_heredoc_sig(void);
+t_terminal			*get_terminal(t_terminal *new);
 
 //read
 t_dyn_arr			dyn_arr_new(void);
