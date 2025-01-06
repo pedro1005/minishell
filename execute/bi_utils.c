@@ -6,7 +6,7 @@
 /*   By: pedmonte & gamado-x <marvin@42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 19:00:55 by pedmonte          #+#    #+#             */
-/*   Updated: 2024/12/11 19:00:57 by pedmonte         ###   ########.fr       */
+/*   Updated: 2024/12/20 21:47:57 by pedmonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 void	unset_utils(char **envp, char **token, t_dyn_arr env, int *i)
 {
-	char	*name;
-	int		j;
-	int		k;
+	const char	*name = get_var_name(envp[*i]);
+	int			j;
+	int			k;
 
 	k = 1;
-	name = get_var_name(envp[*i]);
 	while (token[k])
 	{
 		if (ft_strcmp(token[k], name) == 0)
@@ -33,11 +32,13 @@ void	unset_utils(char **envp, char **token, t_dyn_arr env, int *i)
 			}
 			envp[j] = NULL;
 			env.len--;
+			(*i)--;
+			break ;
 		}
 		k++;
 	}
 	(*i)++;
-	free(name);
+	free((char *)name);
 }
 
 void	cd_utils_two(char *home, char *oldpwd, char *current_pwd,

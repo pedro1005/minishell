@@ -41,3 +41,18 @@ char	*ft_get_clean_var_name(char *var)
 		return (get_var_name(var));
 	return (ft_strdup(var));
 }
+
+int	check_alloc_vars(char **buf, char *new_var)
+{
+	if (buf && !new_var)
+	{
+		free(buf);
+		return (1);
+	}
+	if (!buf && new_var)
+	{
+		free(new_var);
+		return (1);
+	}
+	return (0);
+}

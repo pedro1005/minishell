@@ -30,7 +30,7 @@ void	ft_export(t_terminal *terminal, char **args)
 	}
 }
 
-void	ft_pwd(void)
+void	ft_pwd(t_terminal *t)
 {
 	char	*dir;
 	char	buff[1024];
@@ -38,6 +38,8 @@ void	ft_pwd(void)
 	dir = getcwd(buff, sizeof(buff));
 	if (dir != NULL)
 		printf("%s", dir);
+	else
+		printf("%s", t->current_pwd);
 	printf("\n");
 	g_signals = 0;
 }
@@ -48,7 +50,9 @@ char	*ft_get_pwd(void)
 	char	buff[1024];
 
 	dir = getcwd(buff, sizeof(buff));
-	return (ft_strdup(dir));
+	if (dir)
+		return (ft_strdup(dir));
+	return (NULL);
 }
 
 char	*ft_getenv(char **env, char *str)

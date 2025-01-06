@@ -48,6 +48,7 @@ void	ft_exec_fd_child(t_exec *exec, int input_fd,
 		ft_free_cmds(terminal);
 		free_dyn_arr(terminal->envp);
 		free_dyn_arr(terminal->envt);
+		ft_free_str(terminal->current_pwd);
 		exit(0);
 	}
 }

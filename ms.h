@@ -136,6 +136,8 @@ typedef struct s_terminal
 	int			exit;
 	int			fd_cp[2];
 	int			is_fd0;
+	int			shlevl;
+	char		*current_pwd;
 	t_dyn_arr	envp;
 	t_dyn_arr	envt;
 	t_tree		*commands;
@@ -176,6 +178,7 @@ void				ft_free_redir(t_tree *cmd);
 void				ft_free_cmds(t_terminal *terminal);
 void				ft_free_tokens(t_dyn_arr *tokens);
 void				free_dyn_arr(t_dyn_arr dy_arr);
+void				ft_free_str(char *str);
 
 //signal handler
 void				set_signal(void);
@@ -216,7 +219,7 @@ char				*get_operator(t_lexeme *lx);
 
 //execute
 void				ft_export(t_terminal *terminal, char **args);
-void				ft_pwd(void);
+void				ft_pwd(t_terminal *terminal);
 char				*ft_get_pwd(void);
 char				*ft_getenv(char **env, char *str);
 void				ft_exit(t_terminal *terminal, t_exec *bi);
@@ -294,6 +297,7 @@ int					handle_output_redir(t_redir *redir, int *input_fd, \
 t_redir				*ft_get_redir(t_token **tokens, int index);
 char				*ft_strtok(char *str, const char *delim);
 void				export_utils(t_terminal *term, int *i, char **args);
+int					check_alloc_vars(char **buf, char *new_var);
 
 static inline char	*get_char(const t_lexeme *lx, size_t i)
 {

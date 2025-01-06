@@ -38,6 +38,45 @@ void	ft_print_export(char **envp)
 	}
 }
 
+int	ft_check_flags(char **args)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	while (args && args[i])
+	{
+		j = 0;
+		if (args[i][0] == '-')
+		{
+			j++;
+			while (args[i][j])
+			{
+				if (args[i][j] != '-' || j >= 2)
+				{
+					write(2, "pwd: invalid flags.\n", 20);
+					g_signals = 2;
+					return (1);
+				}
+				j++;
+			}
+		}
+		i++;
+	}
+	return (0);
+}
+
+void	ft_free_str(char *str)
+{
+	if (!str)
+		return ;
+	else
+	{
+		free(str);
+		str = NULL;
+	}
+}
+
 void	ft_execbi(t_exec *bi, t_terminal *terminal)
 {
 	const char	*name;
@@ -49,9 +88,17 @@ void	ft_execbi(t_exec *bi, t_terminal *terminal)
 	if (ft_strcmp((char *)name, "echo") == 0)
 		ft_echo(bi->args);
 	else if (ft_strcmp((char *)name, "cd") == 0)
+	{
 		ft_cd(bi->args, terminal);
+		ft_free_str(terminal->current_pwd);
+		terminal->current_pwd = ft_get_pwd();
+	}
 	else if (ft_strcmp((char *)name, "pwd") == 0)
-		ft_pwd();
+	{
+		if (ft_check_flags(bi->args))
+			return ;
+		ft_pwd(terminal);
+	}
 	else if (ft_strcmp((char *)name, "export") == 0)
 		ft_export(terminal, bi->args);
 	else

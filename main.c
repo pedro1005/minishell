@@ -114,6 +114,7 @@ int	main(int argc, char **argv, char **envp)
 	rpel(&terminal);
 	ft_free_args((char **)terminal.envp.buf);
 	ft_free_args((char **)terminal.envt.buf);
+	ft_free_str(terminal.current_pwd);
 	rl_clear_history();
 	return (0);
 }

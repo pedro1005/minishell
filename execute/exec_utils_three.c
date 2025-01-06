@@ -21,6 +21,7 @@ void	abst_exec(t_tree *root, t_terminal *terminal, int hd_input_fd)
 	ft_free_cmds(terminal);
 	free_dyn_arr(terminal->envp);
 	free_dyn_arr(terminal->envt);
+	ft_free_str(terminal->current_pwd);
 	exit(g_signals);
 }
 

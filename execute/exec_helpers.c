@@ -70,8 +70,11 @@ void	exec_rh(char *line, int *i, char **delim)
 	}
 }
 
-void	exec_rh_f(char *line, char **delim, int *i, int write_fd)
+void	exec_rh_f(char **delim, int *i, int write_fd, t_terminal *t)
 {
+	char	*p;
+	char	*line;
+
 	while (1)
 	{
 		line = readline("> ");
@@ -89,9 +92,10 @@ void	exec_rh_f(char *line, char **delim, int *i, int write_fd)
 			free(line);
 			break ;
 		}
-		write(write_fd, line, ft_strlen(line));
+		p = expand_token(line, &t->envt);
+		write(write_fd, p, ft_strlen(p));
 		write(write_fd, "\n", 1);
-		free(line);
+		free(p);
 	}
 }
 
@@ -103,11 +107,12 @@ void	write_here_doc(int write_fd, char **delim, t_terminal *terminal)
 	i = 0;
 	line = NULL;
 	exec_rh(line, &i, delim);
-	exec_rh_f(line, delim, &i, write_fd);
+	exec_rh_f(delim, &i, write_fd, terminal);
 	close(write_fd);
 	ft_free_cmds(terminal);
 	free_dyn_arr(terminal->envp);
 	free_dyn_arr(terminal->envt);
+	ft_free_str(terminal->current_pwd);
 	signal(SIGINT, SIG_DFL);
 	exit(0);
 }

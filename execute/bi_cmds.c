@@ -36,6 +36,7 @@ void	ft_exit(t_terminal *terminal, t_exec *bi)
 	ft_free_cmds(terminal);
 	free_dyn_arr(terminal->envp);
 	free_dyn_arr(terminal->envt);
+	ft_free_str(terminal->current_pwd);
 	exit(g_signals);
 }
 

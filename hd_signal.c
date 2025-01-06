@@ -33,6 +33,7 @@ void	handle_heredoc_sig(int sig)
 		ft_free_cmds(t);
 		free_dyn_arr(t->envp);
 		free_dyn_arr(t->envt);
+		ft_free_str(t->current_pwd);
 		exit(130);
 	}
 }

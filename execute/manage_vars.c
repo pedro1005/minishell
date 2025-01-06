@@ -65,7 +65,7 @@ char	**ft_copy_env_with_var(t_dyn_arr *envp, char *var, int var_exist)
 
 	new_var = get_var_name(var);
 	buf = ft_allocate_env_buffer(envp, var_exist);
-	if (!buf || !new_var)
+	if (check_alloc_vars(buf, new_var))
 		return (NULL);
 	i = 0;
 	while ((char *)envp->buf[i])

@@ -52,11 +52,24 @@ int	pos_env_var(t_dyn_arr *env, char *find)
 	return (-1);
 }
 
+void	update_shlvl(char *minishlvl, t_dyn_arr *env, int lvl)
+{
+	lvl = ft_atoi(minishlvl) + 1;
+	free(minishlvl);
+	minishlvl = ft_strjoin("MINISHLVL=", ft_itoa(lvl));
+	ft_add_var(env, minishlvl);
+	free(minishlvl);
+}
+
 t_dyn_arr	env_init(char **envp)
 {
 	size_t		i;
 	t_dyn_arr	env;
+	char		*minishlvl;
+	int			lvl;
 
+	minishlvl = NULL;
+	lvl = 1;
 	env = dyn_arr_new();
 	i = 0;
 	while (envp[i])
@@ -65,5 +78,12 @@ t_dyn_arr	env_init(char **envp)
 		i += 1;
 	}
 	dyn_arr_push(&env, NULL);
+	minishlvl = ft_getenv(envp, "MINISHLVL");
+	if (!minishlvl)
+		ft_add_var(&env, "MINISHLVL=1");
+	else
+	{
+		update_shlvl(minishlvl, &env, lvl);
+	}
 	return (env);
 }
